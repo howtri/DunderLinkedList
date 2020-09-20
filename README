@@ -1,0 +1,2 @@
+Implementation of basic LinkedList methods with python dunder methods. Plans to add slicing, deleting from index, and
+more. Additionally includes outline for a recursive dunder LinkedList class.
