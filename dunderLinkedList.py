@@ -35,8 +35,9 @@ class DunderLinkedList:
         """
         Removes the first instance of a value in LL
         """
-        current = self._head
         try:
+            # if the val to remove is the first node or the list is one long
+            current = self._head
             if val == current.data:
                 if self._head.next:
                     self._head = self._head.next
@@ -51,12 +52,16 @@ class DunderLinkedList:
                     return True
                 previous = current
                 current = current.next
+
+            # if val corresponds to last node
             if val == current.data:
                 previous.next = None
                 return True
             return False
+
         except AttributeError:
             print('Linked List has no nodes! Add to it first.')
+            return False
 
     def __len__(self):
         """Returns the number of nodes in LL"""
@@ -67,8 +72,9 @@ class DunderLinkedList:
                 current = current.next
                 count += 1
             return count
+
         except AttributeError:
-            print('Linked List has no nodes! Add to it first.')
+            return 0
 
     def __contains__(self, val):
         """Returns true if the passed val is found in the LL"""
@@ -78,11 +84,13 @@ class DunderLinkedList:
                 if val == current.data:
                     return True
                 current = current.next
+
             if val == current.data:
                 return True
             return False
+
         except AttributeError:
-            print('Linked List has no nodes! Add to it first.')
+            return False
 
     def __getitem__(self, index):
         """
@@ -99,20 +107,46 @@ class DunderLinkedList:
                     return current.data
                 current = current.next
                 count += 1
+
             if count == index:
                 return current.data
             return False
+
         except AttributeError:
             print('Linked List has no nodes! Add to it first.')
+            return False
 
-    def __delitem__(self, i, j):
-        pass
+    def __setitem__(self, index, value):
+        """Allows changing a nodes data by index. Ex: LL[1] = 'hello'"""
+        # for reverse indexing (-1 is last etc)
+        if index < 0:
+            index = len(self) + index
+        try:
+            count = 0
+            current = self._head
+            while current.next:
+                if count == index:
+                    current.data = value
+                    return True
+                current = current.next
+                count += 1
+
+            if count == index:
+                current.data = value
+                return True
+            return False
+
+        except AttributeError:
+            print('Linked List has no nodes! Add to it first.')
+            return False
+
 
 d1 = DunderLinkedList()
 d1 + 7
 d1 + 2
 d1 + 3
 d1 - 3
-print(d1[0])
+print(d1[-1])
+d1[-1] = 3
 print(3 in d1)
 print(d1)
